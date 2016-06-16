@@ -30,12 +30,14 @@
     "minimist": "^1.2.0",
     "moment": "^2.13.0",
     "node-find-files": "0.0.4",
+    "node-localstorage": "^1.3.0",
     "winston": "^2.2.0"
   },
   "devDependencies": {
     "babel-cli": "^6.10.1",
     "babel-polyfill": "^6.9.1",
     "babel-preset-es2015": "^6.9.0",
+    "babel-preset-stage-2": "^6.5.0",
     "grunt": "^1.0.1"
   }
 }
