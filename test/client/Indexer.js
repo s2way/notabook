@@ -2,20 +2,58 @@
 
 var assert = require('assert');
 import 'babel-polyfill';
+import http from 'http';
+import url from 'url';
 import Indexer from './../../lib/client/src/Indexer';
 
 describe('Class Indexer', () => {
-    var options, data = null;
+    var optionsTest, dataTest, logger = null;
+
+    before(() =>{
+        http.createServer((req, res) => {
+            switch(url.parse(req.url).pathname) {
+               case '/error':
+                   res.writeHead(200);
+                   res.end();
+                   break;
+               case '/abort':
+                   res.abort();
+                   break;
+               case '/ok/':
+                   res.writeHead(200);
+                   res.end();
+                   break;
+               default:
+                   res.writeHead(200);
+                   res.end();
+                   break;
+            };
+        }).listen(8008);
+
+        logger = {
+            info: (msg) => {
+                console.log(msg);
+            },
+            error: (msg) => {
+                console.log(msg);
+            },
+            debug: (msg) => {
+                console.log(msg);
+            }
+        };
+    });
+
     beforeEach(() => {
-        options = {
-            limit : 1000,
+        optionsTest = {
+            limit : 4,
             token: 'testToken',
             hostname: '127.0.0.1',
             method: 'POST',
-            timeout: 10000,
-            port: 8008
+            timeout: 1000,
+            port: 8008,
+            interval: 10
         };
-        data = [
+        dataTest = [
             {path: '/tmp/0'},
             {path: '/tmp/1'}
         ]
@@ -23,21 +61,36 @@ describe('Class Indexer', () => {
 
     describe('Contructor()', () => {
         it('should return build a queue of limit size', () => {
-            let indexer = new Indexer({}, options);
+            let options = Object.assign({}, optionsTest);
+            let indexer = new Indexer({}, optionsTest);
             assert.equal(indexer.queueData.length, options.limit);
         });
     });
     describe('Run()', () => {
-        it('should load the first queue with the data inside', (done) => {
-            let indexer = new Indexer({}, options, Object.assign([], data));
-            indexer.run();
-            assert.equal(indexer.queueData[1], JSON.stringify(data[0]));
-            assert.equal(indexer.queueData[0], JSON.stringify(data[1]));
-            done();
+        it('should load the first queue with the data inside', () => {
+            let deps = {logger: logger};
+            let options = Object.assign({}, optionsTest);
+            let data = Object.assign([], dataTest);
+            let indexer = new Indexer(deps, options);
+            indexer.run(data);
+            assert.equal(indexer.queueData[1], JSON.stringify(dataTest[0]));
+            assert.equal(indexer.queueData[0], JSON.stringify(dataTest[1]));
         });
-        it('should post data to endpoint', (done) => {
-            let indexer = new Indexer({}, options, Object.assign([], data, done));
-            indexer.run();
+        it('should post data to endpoint and end process if all ok', (done) => {
+            let deps = {logger: logger};
+            let options = Object.assign({}, optionsTest);
+            let data = Object.assign([], dataTest);
+            options.path = '/ok';
+            let indexer = new Indexer(deps, options);
+            indexer.run(data, done);
+        });
+        it('should not end if request fail', (done) => {
+            let deps = {logger: logger};
+            let options = Object.assign({}, optionsTest);
+            let data = Object.assign([], dataTest);
+            options.path = '/error';
+            let indexer = new Indexer(deps, options);
+            indexer.run(data, done);
         });
     });
 });
