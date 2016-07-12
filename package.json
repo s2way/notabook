@@ -28,6 +28,7 @@
   "homepage": "https://github.com/s2way/notabook#readme",
   "dependencies": {
     "babel-core": "^6.10.4",
+    "joi": "^9.0.0",
     "minimist": "^1.2.0",
     "moment": "^2.13.0",
     "node-find-files": "0.0.4",
