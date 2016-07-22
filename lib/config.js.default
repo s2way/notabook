@@ -3,3 +3,13 @@ export const config = {
         pfxTmpFolder: "/tmp/pk12/"
     }
 }
+
+export const couchbase = {
+    cluster: "couchbase://127.0.0.1",
+    buckets: {
+        notabook: {
+            name: "default",
+            password: null
+        }
+    }
+}

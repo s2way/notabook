@@ -1,0 +1,7 @@
+/* ---------------------------------------------------------------------- */
+/*  V-accordion
+/* ---------------------------------------------------------------------- */
+.vAccordion--default v-pane-header::after, .vAccordion--default v-pane-header::before {
+    right: auto !important;
+    left: 0 !important;
+}

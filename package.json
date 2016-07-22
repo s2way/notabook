@@ -27,18 +27,20 @@
   },
   "homepage": "https://github.com/s2way/notabook#readme",
   "dependencies": {
-    "babel-core": "^6.10.4",
+    "couchnode-pro": "^1.0.7",
     "joi": "^9.0.0",
     "minimist": "^1.2.0",
     "moment": "^2.13.0",
     "node-find-files": "0.0.4",
     "node-localstorage": "^1.3.0",
+    "node-uuid": "^1.4.7",
     "restify": "^4.1.1",
     "soap": "^0.16.0",
     "winston": "^2.2.0",
     "xml2js": "^0.4.16"
   },
   "devDependencies": {
+    "babel-core": "^6.10.4",
     "babel-cli": "^6.10.1",
     "babel-polyfill": "^6.9.1",
     "babel-preset-es2015": "^6.9.0",
