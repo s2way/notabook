@@ -4,7 +4,8 @@
   "description": "Um livro para suas notas",
   "main": "./lib/src/index.js",
   "scripts": {
-    "test": "mocha --recursive --compilers js:babel-core/register test/"
+    "test": "mocha --recursive --compilers js:babel-core/register test/",
+    "backend": "nodemon --exec babel-node ./lib/backend/server.js"
   },
   "repository": {
     "type": "git",
@@ -40,13 +41,14 @@
     "xml2js": "^0.4.16"
   },
   "devDependencies": {
-    "babel-core": "^6.10.4",
     "babel-cli": "^6.10.1",
+    "babel-core": "^6.10.4",
     "babel-polyfill": "^6.9.1",
     "babel-preset-es2015": "^6.9.0",
     "babel-preset-stage-2": "^6.5.0",
     "blanket": "^1.2.3",
     "grunt": "^1.0.1",
+    "grunt-cli": "^1.2.0",
     "mocha": "^2.5.3"
   }
 }
