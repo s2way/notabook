@@ -13,3 +13,7 @@ export const couchbase = {
         }
     }
 }
+
+export const secret = {
+    keyCert: "your-secret-goes-here"
+}
