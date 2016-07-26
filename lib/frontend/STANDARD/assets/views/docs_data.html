@@ -1,0 +1,35 @@
+<!-- start: PAGE TITLE -->
+<section id="page-title">
+	<div class="row">
+		<div class="col-sm-8">
+			<h1 class="mainTitle">DOCUMENTOS</h1>
+		</div>
+		<div ncy-breadcrumb></div>
+	</div>
+</section>
+<!-- end: PAGE TITLE -->
+<!-- start: TABLE WITH SORTING -->
+<div class="container-fluid container-fullw bg-white">
+	<div class="row">
+		<div class="col-md-12">
+			<h5 class="over-title margin-bottom-15"><span class="text-bold"></span></h5>
+			<!-- /// controller:  'ngTableCtrl2' -  localtion: assets/js/controllers/ngTableCtrl.js /// -->
+			<div ng-controller="ngTableCtrl2">
+				<div class="row margin-bottom-10">
+					<div class="col-md-12">
+						<button ng-click="tableParams.sorting({})" class="btn btn-default pull-right">
+							Clear sorting
+						</button>
+					</div>
+				</div>
+				<strong>Sorting:</strong> {{tableParams.sorting() | json}}
+				<table class="table table-striped" ng-table-dynamic="tableParams with docs.cols">
+					<tr ng-repeat="row in $data">
+						<td ng-repeat="col in docs.cols">{{row[col.field]}}</td>
+					</tr>
+				</table>
+			</div>
+		</div>
+	</div>
+</div>
+<!-- end: TABLE WITH SORTING -->
